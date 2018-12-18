@@ -1,0 +1,2 @@
+export let ADD_PERSON = 'ADD_PERSON';
+export let REMOVE_PERSON = 'REMOVE_PERSON';

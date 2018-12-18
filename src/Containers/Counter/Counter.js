@@ -8,30 +8,6 @@ class Counter extends React.Component {
   state = {
     counter: this.props.ctr
   };
-  counterChangedHandler = (action, value) => {
-    switch (action) {
-      case "inc":
-        this.setState(prev => {
-          return { counter: prev.counter + 1 };
-        });
-        break;
-      case "dec":
-        this.setState(prev => {
-          return { counter: prev.counter - 1 };
-        });
-        break;
-      case "add":
-        this.setState(prev => {
-          return { counter: prev.counter + 5 };
-        });
-        break;
-      case "sub":
-        this.setState(prev => {
-          return { counter: prev.counter - 5 };
-        });
-        break;
-    }
-  };
   render() {
     return (
       <div className="mt-5">
@@ -60,10 +36,10 @@ class Counter extends React.Component {
             />
           </div>
           <div className="mt-3">
-            <button className="btn btn-info" onClick={this.props.onRsultAdd}>
+            <button className="btn btn-info" onClick={() => this.props.onRsultAdd(this.props.ctr)}>
               Add Result
             </button>
-            <ul className="text-center">
+            <ol className="text-center">
               {this.props.results.map(result => (
                 <li key={result.id}>
                   {result.value}{" "}
@@ -75,7 +51,7 @@ class Counter extends React.Component {
                   </button>
                 </li>
               ))}
-            </ul>
+            </ol>
           </div>
         </div>
       </div>
@@ -85,8 +61,8 @@ class Counter extends React.Component {
 
 let mapStateToProps = state => {
   return {
-    ctr: state.counter,
-    results: state.result
+    ctr: state.ctr.counter,
+    results: state.res.result
   };
 };
 
@@ -96,7 +72,7 @@ let mapDispatchToProps = dispatch => {
     onDecrementCounter: () => dispatch({ type: actionTypes.DECREMENT, value: 1 }),
     onAddCounter: () => dispatch({ type: actionTypes.ADD, value: 10 }),
     onSubCounter: () => dispatch({ type: actionTypes.SUB, value: 10 }),
-    onRsultAdd: () => dispatch({ type: actionTypes.STORE_RESULT }),
+    onRsultAdd: (result) => dispatch({ type: actionTypes.STORE_RESULT , result: result}),
     onRsultDelete: (id) => dispatch({ type: actionTypes.DELETE_RESULT, resultid: id })
   };
 };
